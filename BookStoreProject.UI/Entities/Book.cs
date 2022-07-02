@@ -5,16 +5,21 @@ namespace BookStoreProject.UI.Entities
 {
 	public class Book
 	{
-		public Book(Guid id, string title, int isbn, int price, ICollection<Author> authors,
+		public Book(Guid id, string title, int isbn, int price, Author authors,
 			ICollection<Opinion> opinions, Guid? genreId)
 		{
 			Id = id;
 			Title = title;
 			ISBN = isbn;
 			Price = price;
-			Authors = authors;
+			AuthorId = authors?.Id;
 			Opinions = opinions;
 			GenreId = genreId;
+		}
+
+		public Book()
+		{
+			
 		}
 
 		public Guid Id { get; set; }
@@ -22,8 +27,9 @@ namespace BookStoreProject.UI.Entities
 		public string Title { get; set; }
 		public int ISBN { get; set; }
 		public int Price { get; set; }
-		
-		public virtual ICollection<Author> Authors { get; set; }
+
+		public Guid? AuthorId { get; set; }
+		public virtual Author BookAuthor { get; set; }
 		public virtual ICollection<Opinion> Opinions { get; set; }
 		
 		public Guid? GenreId { get; set; }
