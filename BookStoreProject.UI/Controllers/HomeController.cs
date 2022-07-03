@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using BookStoreProject.UI.Models;
+using BookStoreProject.UI.UseCases.AddBook;
 using BookStoreProject.UI.UseCases.GetAllBooks;
 using MediatR;
 
@@ -14,12 +14,10 @@ namespace BookStoreProject.UI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
 		private readonly IMediator _mediator;
 
-		public HomeController(ILogger<HomeController> logger, IMediator mediator)
+		public HomeController(IMediator mediator)
 		{
-			_logger = logger;
 			_mediator = mediator;
 		}
 
@@ -42,7 +40,17 @@ namespace BookStoreProject.UI.Controllers
 
 		public IActionResult Add()
 		{
-			return RedirectToAction("Index", "Home");
+			return View();
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Add(AddBookCommand command)
+		{
+			var response = await _mediator.Send(command);
+			return response.IsFailure ? RedirectToAction("Add") : RedirectToAction("Index", "Home");
+		}
+
+
+
 	}
 }

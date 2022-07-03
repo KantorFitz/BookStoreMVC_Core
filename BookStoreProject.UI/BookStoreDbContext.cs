@@ -31,6 +31,7 @@ namespace BookStoreProject.UI
 				m.ToTable("Book");
 				m.HasKey(x => x.Id);
 				m.Property(x => x.Id).ValueGeneratedOnAdd();
+				m.Property(x => x.ImageName).IsRequired(false);
 				m.HasOne(x => x.BookAuthor).WithMany();
 				m.HasOne(x => x.BookGenre).WithMany();
 				m.HasMany(x => x.Opinions).WithOne().HasForeignKey(x => x.BookId);
@@ -101,6 +102,10 @@ namespace BookStoreProject.UI
 			book1.AuthorId = author1.Id;
 			book2.AuthorId = author2.Id;
 			book3.AuthorId = author3.Id;
+
+			book1.ImageName = "uszatek.jpg";
+			book2.ImageName = "Colargol.jpg";
+			book3.ImageName = "yogi.png";
 			
 			modelBuilder.Entity<Genre>().HasData(genre1, genre2, genre3);
 			book1.GenreId = genre1.Id;

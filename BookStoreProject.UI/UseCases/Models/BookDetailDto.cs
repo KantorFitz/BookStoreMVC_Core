@@ -11,6 +11,9 @@ namespace BookStoreProject.UI.UseCases.Models
 		public string Title { get; set; }
 		public int ISBN { get; set; }
 		public int Price { get; set; }
+		public string Genre { get; set; }
+		public string GenreDescription { get; set; }
+		public string ImagePath { get; set; }
 
 		public string AuthorFullName { get; set; }
 		public List<OpinionDto> OpinionsDtos { get; set; }

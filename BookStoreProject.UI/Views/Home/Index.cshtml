@@ -1,5 +1,4 @@
-﻿@using Microsoft.EntityFrameworkCore
-@model IEnumerable<BookStoreProject.UI.UseCases.Models.BookDto>;
+﻿@model IEnumerable<BookStoreProject.UI.UseCases.Models.BookDto>;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -19,7 +18,7 @@
         </thead>
 
         <tbody class="tab-content">
-        <div class="row">
+        <div class="row align-items-center">
             @for (var i = 0; i < Model.Count(); i++)
             {
                 @if (i > 0 && i % 10 == 0)
@@ -27,7 +26,14 @@
                     @:</div><div class="row"></div>
                 }
                 <div class="col-xs-6">
-                    <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId">@Model.ElementAt(i).Title</a>
+                    @if (Model.ElementAt(i).ImageName is not null)
+                    {
+                        <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId"><img src="Images/@Model.ElementAt(i).ImageName" width="150px"/></a>
+                    }
+                    else
+                    {
+                        <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId"><div style="width: 150px">@Model.ElementAt(i).Title</div></a>
+                    }
                 </div>
             }
         </div>

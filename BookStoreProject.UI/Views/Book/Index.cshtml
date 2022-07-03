@@ -4,25 +4,27 @@
     ViewData["Title"] = "Dane książki";
 }
 
-<h1>Dane książki</h1>
-<h5>@Model.Title</h5>
+<h1>@Model.Title</h1>
+
 
 <table>
     <tr>
-        <td class="col-xl-6">
-            <span></span>
+        <td class="col-xl-6 align-top">
+            <img src="/Images/uszatek.jpg" asp-append-version="true" width="300px"/>
         </td>
         <td>
             <table class="float-lg-left">
                 <tr>
-                    <th class="col-4">Cena</th>
-                    <th class="col-4">Autor</th>
-                    <th class="col-4">ISBN</th>
+                    <th class="text-left col-4">Cena</th>
+                    <th class="text-left col-4">Autor</th>
+                    <th class="text-left col-4">ISBN</th>
+                    <th class="text-left col-4">Gatunek</th>
                 </tr>
                 <tr>
                     <td class="text-left">@Model.Price</td>
                     <td class="text-left">@Model.AuthorFullName</td>
                     <td class="text-left">@Model.ISBN</td>
+                    <td class="text-left">@Model.Genre</td>
                 </tr>
             </table>
             <div>
@@ -31,12 +33,12 @@
                 <br/>
             </div>
             <table>
-                @foreach (var item in Model.OpinionsDtos)
+                @foreach (var item in Model.OpinionsDtos.OrderBy(x=>x.CreatedAt))
                 {
                     <tr>
                         <div>
                             <div class="font-weight-bold" style="font-size: small;">
-                                @item.Author
+                                @item.Author at @item.CreatedAt
                             </div>
                             <div>
                                 @item.Content

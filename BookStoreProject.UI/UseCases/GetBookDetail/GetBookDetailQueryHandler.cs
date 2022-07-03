@@ -19,8 +19,8 @@ namespace BookStoreProject.UI.UseCases.GetBookDetail
 		
 		public async Task<BookDetailDto> Handle(GetBookDetailQuery request, CancellationToken cancellationToken)
 		{
-			var book = await _context.Books.Include(x=>x.Opinions).Include(x=>x.BookAuthor).SingleAsync(x => x.Id == request.Id, cancellationToken);
-
+			var book = await _context.Books./*Include(x=>x.Opinions).*//*Include(x=>x.BookAuthor).*//*Include(x=>x.BookGenre).*/SingleAsync(x => x.Id == request.Id, cancellationToken);
+			
 			return new BookDetailDto
 			{
 				Price = book.Price,
@@ -28,10 +28,14 @@ namespace BookStoreProject.UI.UseCases.GetBookDetail
 				Title = book.Title,
 				AuthorFullName = $"{book?.BookAuthor?.Name} {book?.BookAuthor?.Surname}",
 				ISBN = book.ISBN,
+				ImagePath = book.ImageName,
+				Genre = book.BookGenre?.Name ?? "Komiks",
+				GenreDescription = book.BookGenre?.Description ?? "Prosty komiks",
 				OpinionsDtos = _context.Opinions.Where(x => x.BookId == request.Id).Select(x => new OpinionDto
 				{
 					Author = x.UserName,
-					Content = x.Content
+					Content = x.Content,
+					CreatedAt = x.CreatedAt
 				}).ToList()
 			};
 		}

@@ -38,7 +38,7 @@ namespace BookStoreProject.UI
 
 			services.AddDbContext<BookStoreDbContext>(opt =>
 			{
-				opt.UseSqlServer(connStr);
+				opt.UseLazyLoadingProxies().UseSqlServer(connStr);
 			});
 
 			services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);

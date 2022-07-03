@@ -28,6 +28,8 @@ namespace BookStoreProject.UI.Entities
 		public int ISBN { get; set; }
 		public int Price { get; set; }
 
+		public string ImageName { get; set; }
+
 		public Guid? AuthorId { get; set; }
 		public virtual Author BookAuthor { get; set; }
 		public virtual ICollection<Opinion> Opinions { get; set; }

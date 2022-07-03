@@ -1,0 +1,54 @@
+﻿@using BlazorInputFile
+@model BookStoreProject.UI.UseCases.AddBook.AddBookCommand
+
+@{
+    ViewData["Title"] = "Dodaj książkę";
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Title">Podaj tytuł:</label>
+        <input asp-for="Title" type="text" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Genre">Podaj gatunek:</label>
+        <input asp-for="Genre" type="text" class="form-control"/>
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <table class="align-items-center">
+            <tr>
+                <th><label asp-for="AuthorName">Podaj imie autora:</label></th>
+                <th><label asp-for="AuthorSurname">Podaj nazwisko autora:</label></th>
+            </tr>
+            <tr>
+                <td>
+                    <input asp-for="AuthorName" type="text" class="form-control flex-fill"/>
+                    <span asp-validation-for="AuthorName" class="text-danger"></span>
+                </td>
+                <td>
+                    <input asp-for="AuthorSurname" type="text" class="form-control flex-fill"/>
+                    <span asp-validation-for="AuthorSurname" class="text-danger"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Podaj cenę:</label>
+        <input asp-for="Price" type="number" class="form-control"/>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ISBN">Podaj ISBN:</label>
+        <input asp-for="ISBN" type="number" class="form-control"/>
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+    
+    <button class="btn btn-outline-primary float-left">Dodaj obraz</button>
+    <button type="submit" class="btn btn-outline-primary float-right">Zapisz</button>
+    
+    <InputFile OnChange="HandleFileSelected" />
+    
+    
+</form>

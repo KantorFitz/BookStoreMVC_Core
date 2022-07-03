@@ -19,7 +19,7 @@ namespace BookStoreProject.UI.UseCases.GetAllBooks
 		
 		public async Task<List<BookDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
 		{
-			return await _context.Books.Select(x => new BookDto{BookId = x.Id, Title = x.Title}).ToListAsync(cancellationToken);
+			return await _context.Books.Select(x => new BookDto{BookId = x.Id, Title = x.Title, ImageName = x.ImageName}).ToListAsync(cancellationToken);
 		}
 	}
 }

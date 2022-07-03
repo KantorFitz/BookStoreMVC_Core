@@ -6,5 +6,6 @@ namespace BookStoreProject.UI.UseCases.Models
 	{
 		public Guid BookId { get; set; }
 		public string Title { get; set; }
+		public string ImageName { get; set; }
 	}
 }
