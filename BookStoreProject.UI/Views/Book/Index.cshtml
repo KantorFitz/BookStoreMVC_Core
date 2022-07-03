@@ -1,0 +1,61 @@
+﻿@model BookStoreProject.UI.UseCases.Models.BookDetailDto
+
+@{
+    ViewData["Title"] = "Dane książki";
+}
+
+<h1>Dane książki</h1>
+<h5>@Model.Title</h5>
+
+<table>
+    <tr>
+        <td class="col-xl-6">
+            <span></span>
+        </td>
+        <td>
+            <table class="float-lg-left">
+                <tr>
+                    <th class="col-4">Cena</th>
+                    <th class="col-4">Autor</th>
+                    <th class="col-4">ISBN</th>
+                </tr>
+                <tr>
+                    <td class="text-left">@Model.Price</td>
+                    <td class="text-left">@Model.AuthorFullName</td>
+                    <td class="text-left">@Model.ISBN</td>
+                </tr>
+            </table>
+            <div>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+            <table>
+                @foreach (var item in Model.OpinionsDtos)
+                {
+                    <tr>
+                        <div>
+                            <div class="font-weight-bold" style="font-size: small;">
+                                @item.Author
+                            </div>
+                            <div>
+                                @item.Content
+                            </div>
+                            <br/>
+                        </div>
+                    </tr>
+                }
+                <tr>
+                    <a asp-action="AddComment" asp-route-id="@Model.Id">
+                        <button>Dodaj opinię</button>
+                    </a>
+                </tr>
+            </table>
+        </td>
+        <div class="tab-pane border-right col-4">
+
+        </div>
+
+        <a asp-controller="Home" asp-action="Index" class="text-danger btn-link">< Powrót</a>
+    </tr>
+</table>

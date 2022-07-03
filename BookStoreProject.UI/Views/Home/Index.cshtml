@@ -1,8 +1,36 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore
+@model IEnumerable<BookStoreProject.UI.UseCases.Models.BookDto>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Książki</h1>
+
+<div>
+    <table class="table">
+        <thead class="tab-pane">
+        <tr>
+            <th></th>
+            <th>
+                <a class="btn btn-outline-success float-right" asp-action="Add">Dodaj nowy</a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody class="tab-content">
+        <div class="row">
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                @if (i > 0 && i % 10 == 0)
+                {
+                    @:</div><div class="row"></div>
+                }
+                <div class="col-xs-6">
+                    <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId">@Model.ElementAt(i).Title</a>
+                </div>
+            }
+        </div>
+        </tbody>
+    </table>
 </div>
