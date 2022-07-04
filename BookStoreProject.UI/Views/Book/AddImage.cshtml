@@ -1,0 +1,17 @@
+﻿@model BookStoreProject.UI.UseCases.AddImage.AddImageCommand
+
+@{
+    ViewData["Title"] = "Wstawianie Obrazka";
+}
+
+<form method="post">
+    @Html.HiddenFor(x=>x.BookId)
+    
+    <div class="form-group">
+        <label asp-for="Url">Url</label>
+        <input asp-for="Url" type="text" class="form-control"/>
+        <span asp-validation-for="Url" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary float-right" asp-action="AddImage" value="Save">Zapisz</button>
+</form>

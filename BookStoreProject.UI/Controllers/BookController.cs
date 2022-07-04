@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
-using BookStoreProject.UI.Entities;
 using BookStoreProject.UI.UseCases.AddComment;
+using BookStoreProject.UI.UseCases.AddImage;
 using BookStoreProject.UI.UseCases.GetBookDetail;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +42,25 @@ namespace BookStoreProject.UI.Controllers
 		{
 			await _mediator.Send(command);
 
+			return RedirectToAction("Index", new {id = command.BookId});
+		}
+
+
+		public IActionResult AddImage(Guid id)
+		{
+			var newImage = new AddImageCommand
+			{
+				BookId = id
+			};
+
+			return View(newImage);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddImage(AddImageCommand command)
+		{
+			await _mediator.Send(command);
+			
 			return RedirectToAction("Index", new {id = command.BookId});
 		}
 	}

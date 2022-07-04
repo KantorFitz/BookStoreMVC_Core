@@ -21,18 +21,36 @@
         <div class="row align-items-center">
             @for (var i = 0; i < Model.Count(); i++)
             {
-                @if (i > 0 && i % 10 == 0)
+                @if (i > 0 && i % 5 == 0)
                 {
                     @:</div><div class="row"></div>
                 }
-                <div class="col-xs-6">
-                    @if (Model.ElementAt(i).ImageName is not null)
+                <div class="float-left col-2">
+                    @if (Model.ElementAt(i).ImageName is null)
                     {
-                        <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId"><img src="Images/@Model.ElementAt(i).ImageName" width="150px"/></a>
+                        <div class="float-left">
+                            @Model.ElementAt(i).Title
+                            <div class="align-items-center">
+                                <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId">
+                                    @{
+                                        <img src="Images/EmptyImagePlaceholder.png" width="110px" class="bg-transparent"/>
+                                    }
+                                </a>
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId"><div style="width: 150px">@Model.ElementAt(i).Title</div></a>
+                        <div class="float-left">
+                            @Model.ElementAt(i).Title
+                            <div class="align-items-center">
+                                <a class="text-warning btn-link btn" asp-action="Index" asp-controller="Book" asp-route-id="@Model.ElementAt(i).BookId">
+                                    @{
+                                        <img src="Images/@Model.ElementAt(i).ImageName" width="150px" class="bg-transparent"/>
+                                    }
+                                </a>
+                            </div>
+                        </div>
                     }
                 </div>
             }
