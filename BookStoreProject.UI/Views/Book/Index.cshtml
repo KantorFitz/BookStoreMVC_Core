@@ -7,6 +7,10 @@
 <h1>@Model.Title</h1>
 
 <a asp-controller="Home" asp-action="Index" class="text-danger btn-link">< Powrót</a>
+<a asp-action="DeleteBook" asp-route-id="@Model.Id" class="text-danger float-right">
+    <button>Usuń książkę</button>
+</a>
+
 <br/>
 <table>
     <tr>
@@ -28,10 +32,10 @@
         <td>
             <table class="float-lg-left">
                 <tr>
-                    <th class="text-left">Cena</th>
-                    <th class="text-left">Autor</th>
-                    <th class="text-left">ISBN</th>
-                    <th class="text-left">Gatunek</th>
+                    <th style="min-width: 100px ">Cena</th>
+                    <th style="min-width: 100px ">Autor</th>
+                    <th style="min-width: 100px ">ISBN</th>
+                    <th style="min-width: 100px">Gatunek</th>
                 </tr>
                 <tr>
                     <td class="text-left">@Model.Price</td>
@@ -46,22 +50,26 @@
                 <br/>
             </div>
             <table>
-                <div class="reviews-body">
-                    @foreach (var item in Model.OpinionsDtos.OrderBy(x => x.CreatedAt))
-                    {
-                        <tr>
+                <tr>
+                    <div class="review-car" style="width: 600px; display: flex; align-items: center; justify-content: center">
+                        <a asp-action="AddComment" asp-route-id="@Model.Id">
+                            <img src="/Images/AddOpinion.png" width="50px" alt="Dodaj opinię"/>
+                        </a>
+                    </div>
+                </tr>
+                <tr>
+                    <div style="overflow-y: scroll; height: 400px; width: auto;">
+                        @foreach (var item in Model.OpinionsDtos.OrderBy(x => x.CreatedAt))
+                        {
+                            @* <div class="reviews-body"> *@
                             <div class="review-card" style="width: 600px">
                                 <span class="reviewer-name">@item.Author</span>
                                 <span class="reviewer-name">@item.CreatedAt</span>
                                 <p style="font-size: 11px">@item.Content</p>
                             </div>
-                        </tr>
-                    }
-                </div>
-                <tr>
-                    <a asp-action="AddComment" asp-route-id="@Model.Id">
-                        <button>Dodaj opinię</button>
-                    </a>
+                            @* </div> *@
+                        }
+                    </div>
                 </tr>
             </table>
         </td>

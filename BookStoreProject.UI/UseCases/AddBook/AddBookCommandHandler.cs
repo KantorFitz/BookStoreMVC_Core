@@ -28,7 +28,7 @@ namespace BookStoreProject.UI.UseCases.AddBook
 			{
 				Title = request.Title,
 				ISBN = request.ISBN,
-				Price = request.Price,
+				Price = request.Price
 			};
 
 			_context.Books.Add(newBook);

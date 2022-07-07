@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BookStoreProject.UI.UseCases.AddComment;
 using BookStoreProject.UI.UseCases.AddImage;
+using BookStoreProject.UI.UseCases.DeleteBook;
 using BookStoreProject.UI.UseCases.GetBookDetail;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -40,9 +41,11 @@ namespace BookStoreProject.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddComment(AddCommentCommand command)
 		{
-			await _mediator.Send(command);
-
-			return RedirectToAction("Index", new {id = command.BookId});
+			var results = await _mediator.Send(command);
+			if (!results.IsFailure) return RedirectToAction("Index", new { id = command.BookId });
+			
+			ModelState.PopulateValidation(results.Errors);
+			return View(command);
 		}
 
 
@@ -59,9 +62,21 @@ namespace BookStoreProject.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddImage(AddImageCommand command)
 		{
-			await _mediator.Send(command);
+			var result = await _mediator.Send(command);
+			if (!result.IsFailure) return RedirectToAction("Index", new { id = command.BookId });
 			
-			return RedirectToAction("Index", new {id = command.BookId});
+			ModelState.PopulateValidation(result.Errors);
+			return View(command);
+		}
+		
+		public async Task<IActionResult> DeleteBook(Guid id)
+		{
+			await _mediator.Send(new DeleteBookCommand
+			{
+				BookId = id
+			});
+
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }

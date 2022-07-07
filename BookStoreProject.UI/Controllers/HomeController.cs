@@ -47,10 +47,10 @@ namespace BookStoreProject.UI.Controllers
 		public async Task<IActionResult> Add(AddBookCommand command)
 		{
 			var response = await _mediator.Send(command);
-			return response.IsFailure ? RedirectToAction("Add") : RedirectToAction("Index", "Home");
+			if (!response.IsFailure) return RedirectToAction("Index", "Home");
+			
+			ModelState.PopulateValidation(response.Errors);
+				return View(command);
 		}
-
-
-
 	}
 }
