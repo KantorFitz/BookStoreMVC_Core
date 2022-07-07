@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BookStoreProject.UI.Models;
@@ -14,16 +10,10 @@ namespace BookStoreProject.UI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IMediator _mediator;
-
-		public HomeController(IMediator mediator)
+		public async Task<IActionResult> Index(
+			[FromServices] IMediator mediator)
 		{
-			_mediator = mediator;
-		}
-
-		public async Task<IActionResult> Index()
-		{
-			var response = await _mediator.Send(new GetAllBooksQuery());
+			var response = await mediator.Send(new GetAllBooksQuery());
 			return View(response);
 		}
 
@@ -44,9 +34,10 @@ namespace BookStoreProject.UI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(AddBookCommand command)
+		public async Task<IActionResult> Add(AddBookCommand command,
+			[FromServices] IMediator mediator)
 		{
-			var response = await _mediator.Send(command);
+			var response = await mediator.Send(command);
 			if (!response.IsFailure) return RedirectToAction("Index", "Home");
 			
 			ModelState.PopulateValidation(response.Errors);
