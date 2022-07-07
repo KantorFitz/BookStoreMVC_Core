@@ -6,17 +6,10 @@
 
 <h1>Książki</h1>
 
+<a class="btn btn-outline-success float-right" asp-action="Add">Dodaj nowy</a>
+
 <div>
     <table class="table">
-        <thead class="tab-pane">
-        <tr>
-            <th></th>
-            <th>
-                <a class="btn btn-outline-success float-right" asp-action="Add">Dodaj nowy</a>
-            </th>
-        </tr>
-        </thead>
-
         <tbody class="tab-content">
         <div class="row align-items-center">
             @for (var i = 0; i < Model.Count(); i++)
