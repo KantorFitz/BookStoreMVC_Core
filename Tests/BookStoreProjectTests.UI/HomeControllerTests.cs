@@ -33,7 +33,6 @@ namespace BookStoreProjectTests.UI
 		{
 			_mediator = Substitute.For<IMediator>();
 			_mediator.Send(Arg.Any<GetAllBooksQuery>()).Returns(_mockedBookDto);
-			_mediator.Send(Arg.Any<AddBookCommand>()).Returns(Result.Ok());
 		}
 
 		[Fact]
@@ -51,9 +50,10 @@ namespace BookStoreProjectTests.UI
 		}
 
 		[Fact]
-		public async Task HomeControllerTest_RedirectsCorreclty()
+		public async Task HomeControllerTest_ResultIsFailure_RedirectsCorrectly()
 		{
 			//Arrange
+			_mediator.Send(Arg.Any<AddBookCommand>()).Returns(Result.Ok());
 			var controller = new HomeController();
 
 			// Act

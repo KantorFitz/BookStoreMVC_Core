@@ -39,9 +39,9 @@ namespace BookStoreProject.UI.Controllers
 		{
 			var response = await mediator.Send(command);
 			if (!response.IsFailure) return RedirectToAction("Index", "Home");
-			
+
 			ModelState.PopulateValidation(response.Errors);
-				return View(command);
+			return View(command);
 		}
 	}
 }
